@@ -1,0 +1,114 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String
+  name        String
+  role        Role     @default(INTERN)
+  profileImage String? @map("profile_image")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  createdTasks    Task[]       @relation("TaskCreator")
+  submissions     Submission[]
+  reviewedSubmissions Submission[] @relation("SubmissionReviewer")
+  notifications   Notification[]
+
+  @@map("users")
+}
+
+model Task {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String     @db.Text
+  points      Int        @default(10)
+  difficulty  Difficulty @default(MEDIUM)
+  deadline    DateTime?
+  status      TaskStatus @default(ACTIVE)
+  createdBy   Int        @map("created_by")
+  createdAt   DateTime   @default(now()) @map("created_at")
+
+  // Relations
+  creator     User         @relation("TaskCreator", fields: [createdBy], references: [id])
+  submissions Submission[]
+
+  @@map("tasks")
+}
+
+model Submission {
+  id            Int              @id @default(autoincrement())
+  taskId        Int              @map("task_id")
+  userId        Int              @map("user_id")
+  submissionUrl String?          @map("submission_url")
+  githubUrl     String?          @map("github_url")
+  description   String?          @db.Text
+  status        SubmissionStatus @default(PENDING)
+  marks         Int              @default(0)
+  feedback      String?          @db.Text
+  submittedAt   DateTime         @default(now()) @map("submitted_at")
+  reviewedAt    DateTime?        @map("reviewed_at")
+  reviewedBy    Int?             @map("reviewed_by")
+
+  // Relations
+  task     Task  @relation(fields: [taskId], references: [id])
+  user     User  @relation(fields: [userId], references: [id])
+  reviewer User? @relation("SubmissionReviewer", fields: [reviewedBy], references: [id])
+
+  @@unique([taskId, userId], name: "unique_submission")
+  @@map("submissions")
+}
+
+model Notification {
+  id        Int              @id @default(autoincrement())
+  userId    Int              @map("user_id")
+  title     String
+  message   String           @db.Text
+  type      NotificationType @default(SYSTEM)
+  isRead    Boolean          @default(false) @map("is_read")
+  createdAt DateTime         @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
+}
+
+enum Role {
+  INTERN
+  ADMIN
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum TaskStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum SubmissionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum NotificationType {
+  TASK
+  SUBMISSION
+  APPROVAL
+  SYSTEM
+}
