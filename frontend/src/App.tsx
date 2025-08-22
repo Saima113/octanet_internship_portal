@@ -10,9 +10,9 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/" element={<h1 className="text-center mt-10 text-3xl">Home Page</h1>} />
+          <Route path="/" element={<h1 className="text-3xl text-center mt-10">🏠 Home Page</h1>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register/>}/>
         </Routes>
       </Router>
     </AuthProvider>
@@ -20,4 +20,3 @@ function App() {
 }
 
 export default App;
-

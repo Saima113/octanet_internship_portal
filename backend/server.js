@@ -1,8 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-require('dotenv').config();
+require('dotenv').config({ path : './backend/.env'});
+console.log("Loaded secret:", process.env.JWT_SECRET);
 const axios = require('axios');
+const protect = require('./middleware/authMiddleware');
+const authRoutes = require('./routes/authRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 
 const app = express();
@@ -18,9 +22,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-const protect = require('./middleware/authMiddleware');
+//middleware protection
 app.get('/dashboard', protect, (req, res)=>{
-  res.json({ message : 'Welcome to dashboard', user: req.user})
+  res.json({ message : 'Hello ${req.user.name}, Welcome to dashboard.'})
 });
 
 //root route 
@@ -39,10 +43,11 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-const authRoutes = require('./routes/authRoutes');
+
 
 // Use routes
 app.use('/api/auth', authRoutes);
+app.use('/api/tasks', taskRoutes);
 
 
 // Test database connection route

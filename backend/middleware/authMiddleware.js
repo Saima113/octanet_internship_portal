@@ -1,19 +1,37 @@
-// middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
+const { PrismaClient } = require('../generated/prisma');
+const prisma = new PrismaClient();
 
-const protect = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
+const protect = async (req, res, next) => {
+  let token;
 
-  if (!token) {
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    try {
+      token = req.headers.authorization.split(' ')[1];
+
+      console.log("🔹 Incoming Token:", token);
+      console.log("🔹 JWT Secret from env:", process.env.JWT_SECRET);
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log("🔹 Decoded Payload:", decoded);
+
+      // ✅ Fetch user from DB including role
+      req.user = await prisma.user.findUnique({
+        where: { id: decoded.id },
+        select: { id: true, name: true, email: true, role: true }
+      });
+
+      if (!req.user) {
+        return res.status(401).json({ message: 'User not found' });
+      }
+
+      next();
+    } catch (error) {
+      console.error("❌ Token verification error:", error.message);
+      return res.status(401).json({ message: 'Not authorized, token failed' });
+    }
+  } else {
     return res.status(401).json({ message: 'Not authorized, no token' });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Add decoded user data to request
-    next();
-  } catch (err) {
-    res.status(401).json({ message: 'Invalid token' });
   }
 };
 

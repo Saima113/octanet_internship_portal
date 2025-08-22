@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
 
 exports.register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -22,10 +22,11 @@ exports.register = async (req, res) => {
         name,
         email,
         password: hashedPassword,
+        role,
       },
     });
 
-    const token = generateToken(user.id);
+    const token = generateToken(user);
 
     res.status(201).json({
       user: {
@@ -54,7 +55,7 @@ exports.login = async (req, res) => {
 
     if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
 
-    const token = generateToken(user.id);
+    const token = generateToken(user);
 
     res.json({
       user: {
