@@ -3,29 +3,30 @@ import { Link } from 'react-router-dom';
 
 function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-thistle-400 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-thistle-400 flex flex-col justify-center py-4 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-lg">
         <div className="text-center mb-2">
           <h1 className="text-4xl font-extrabold text-cinnabar-400 mb-4">
-            Smart Internship Portal
+            Welcome To InternKaksha
           </h1>
           <p className="text-xl text-puce-100 mb-2">
             Manage your internship journey with ease
           </p>
         </div>
         
-        <div className="bg-white py-5 px-6 shadow-xl rounded-xl">
+        
+        <div className="bg-white py-4 px-10 shadow-xl rounded-xl">
           <div className="space-y-4">
             <Link 
               to="/login" 
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-puce-400 hover:bg-cinnabar-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition duration-200 hover:scale-105"
+              className="w-full flex justify-center py-3 px-2 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-puce-400 hover:bg-cinnabar-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-puce-300 transform transition duration-200 hover:scale-105"
             >
               Sign In
             </Link>
             
             <Link 
               to="/register" 
-              className="w-full flex justify-center py-3 px-4 border-2 border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-puce-400  hover:bg-cinnabar-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition duration-200 hover:scale-105"
+              className="w-full flex justify-center py-3 px-2 border-2 border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-puce-400  hover:bg-cinnabar-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-puce-300 transform transition duration-200 hover:scale-105"
             >
               Create Account
             </Link>

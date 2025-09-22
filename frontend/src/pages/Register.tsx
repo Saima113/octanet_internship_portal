@@ -32,25 +32,25 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-thistle-400 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-2">Hey, there !</h2>
-          <p className="text-gray-600">Create your account to get started</p>
+          <h2 className="text-4xl font-extrabold text-cinnabar-400 mb-2">Hey, there !</h2>
+          <p className="text-puce-100">Create your account to get started</p>
         </div>
         
         <div className="mt-8 bg-white py-8 px-4 shadow-xl rounded-xl sm:px-10">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Role Selection */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-puce-100 mb-2">
                 I am registering as:
               </label>
               <select
                 name="role"
                 value={form.role}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-3 py-2 border text-puce-100 border-dark_moss_green-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-puce-300 focus:border-transparent"
               >
                 <option value="INTERN">Intern</option>
                 <option value="ADMIN">Admin</option>
@@ -66,7 +66,7 @@ const Register = () => {
                   placeholder="Full Name" 
                   value={form.name} 
                   onChange={handleChange} 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
+                  className="w-full px-4 py-3 border border-dark_moss_green-700 rounded-lg placeholder-puce-100 focus:outline-none focus:ring-2 focus:ring-puce-300 focus:border-transparent transition duration-200"
                   required
                 />
               </div>
@@ -78,7 +78,7 @@ const Register = () => {
                   placeholder="Email Address" 
                   value={form.email} 
                   onChange={handleChange} 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
+                  className="w-full px-4 py-3 border border-dark_moss_green-700 rounded-lg placeholder-puce-100 focus:outline-none focus:ring-2 focus:ring-puce-300 focus:border-transparent transition duration-200"
                   required
                 />
               </div>
@@ -90,7 +90,7 @@ const Register = () => {
                   placeholder="Password" 
                   value={form.password} 
                   onChange={handleChange} 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
+                  className="w-full px-4 py-3 border border-dark_moss_green-700 rounded-lg placeholder-puce-100 focus:outline-none focus:ring-2 focus:ring-puce-300 focus:border-transparent transition duration-200"
                   required
                 />
               </div>
@@ -98,8 +98,8 @@ const Register = () => {
 
             {/* Intern-specific fields */}
             {form.role === 'INTERN' && (
-              <div className="space-y-4 pt-4 border-t border-gray-200">
-                <h3 className="text-lg font-medium text-gray-900">Internship Details</h3>
+              <div className="space-y-4 pt-4 border-t border-dark_moss_green-700">
+                <h3 className="text-lg font-medium text-puce-100">Internship Details</h3>
                 
                 <div className="grid grid-cols-1 gap-4">
                   <input 
@@ -108,7 +108,7 @@ const Register = () => {
                     placeholder="Internship Role (e.g., Frontend Developer)" 
                     value={form.internshipRole} 
                     onChange={handleChange} 
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
+                    className="w-full px-4 py-3 border border-dark_moss_green-700 rounded-lg placeholder-puce-100 focus:outline-none focus:ring-2 focus:ring-puce-300 focus:border-transparent transition duration-200"
                     required={form.role === 'INTERN'}
                   />
                   
@@ -119,7 +119,7 @@ const Register = () => {
                       placeholder="Duration (e.g., 3 months)" 
                       value={form.duration} 
                       onChange={handleChange} 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
+                      className="w-full px-4 py-3 border border-dark_moss_green-700 rounded-lg placeholder-puce-100 focus:outline-none focus:ring-2 focus:ring-puce-300 focus:border-transparent transition duration-200"
                       required={form.role === 'INTERN'}
                     />
                     
@@ -129,7 +129,7 @@ const Register = () => {
                       placeholder="Start Date" 
                       value={form.startDate} 
                       onChange={handleChange} 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
+                      className="w-full px-4 py-3 border border-dark_moss_green-700 rounded-lg placeholder-puce-100 focus:outline-none focus:ring-2 focus:ring-puce-300 focus:border-transparent transition duration-200"
                       required={form.role === 'INTERN'}
                     />
                   </div>
@@ -140,7 +140,7 @@ const Register = () => {
                     placeholder="Department (e.g., Engineering)" 
                     value={form.department} 
                     onChange={handleChange} 
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
+                    className="w-full px-4 py-3 border border-dark_moss_green-700 rounded-lg placeholder-puce-100 focus:outline-none focus:ring-2 focus:ring-puce-300 focus:border-transparent transition duration-200"
                     required={form.role === 'INTERN'}
                   />
                 </div>
@@ -149,7 +149,7 @@ const Register = () => {
             
             <button 
               type="submit"
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition duration-200 hover:scale-105"
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-puce-400 hover:bg-cinnabar-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-puce-300 transform transition duration-200 hover:scale-105"
             >
               Create Account
             </button>
@@ -159,7 +159,7 @@ const Register = () => {
             <div className="text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?{' '}
-                <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500 transition duration-200">
+                <Link to="/login" className="font-medium text-apricot-200 transition duration-200">
                   Sign in.
                 </Link>
               </p>
