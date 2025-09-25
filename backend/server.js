@@ -29,7 +29,7 @@ app.get('/dashboard', protect, (req, res)=>{
 
 //root route 
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the Internship Portal API!' });
+  res.json({ message: 'Welcome to the InternKaksha API!' });
 });
 
 
@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: 'OctaNet Portal API is running!',
+    message: 'InternKaksha API is running!',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development'
   });
@@ -98,10 +98,10 @@ app.use((err, req, res, next) => {
 app.listen(PORT, async () => {
   const baseUrl = `http://localhost:${PORT}`;
 
-//   console.log(`🚀 Server running on ${baseUrl}`);
-//   console.log(`🌐 API health check: ${baseUrl}/api/health`);
-//   console.log(`🗄️  Database test: ${baseUrl}/api/test-db`);
-  console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
+//   console.log(` Server running on ${baseUrl}`);
+//   console.log(` API health check: ${baseUrl}/api/health`);
+//   console.log(`  Database test: ${baseUrl}/api/test-db`);
+  console.log(` Environment: ${process.env.NODE_ENV || 'development'}`);
 
   // Internal checks after server starts
   try{
@@ -116,19 +116,19 @@ app.listen(PORT, async () => {
   }
   try {
     const healthRes = await axios.get(`${baseUrl}/api/health`);
-    console.log('\n✅ Health Check Response:');
+    console.log('\n Health Check Response:');
     console.log(healthRes.data);
   } catch (err) {
-    console.error('\n❌ Health Check Failed:');
+    console.error('\n Health Check Failed:');
     console.error(err.response ? err.response.data : err.message);
   }
 
   try {
     const dbRes = await axios.get(`${baseUrl}/api/test-db`);
-    console.log('\n✅ DB Connection Response:');
+    console.log('\n DB Connection Response:');
     console.log(dbRes.data);
   } catch (err) {
-    console.error('\n❌ DB Connection Failed:');
+    console.error('\n DB Connection Failed:');
     console.error(err.response ? err.response.data : err.message);
   }
 });

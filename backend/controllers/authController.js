@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
 
 exports.register = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, internshipRole, duration, startDate, department } = req.body;
 
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
@@ -17,13 +17,25 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Build user data object BEFORE creating the user
+    const userData = {
+      name,
+      email,
+      password: hashedPassword,
+      role: role || 'INTERN',
+    };
+
+    // Add intern-specific fields if role is INTERN and fields are provided
+    if (role === 'INTERN') {
+      if (internshipRole) userData.internshipRole = internshipRole;
+      if (duration) userData.duration = duration;
+      if (startDate) userData.startDate = new Date(startDate);
+      if (department) userData.department = department;
+    }
+
+    // Create user ONCE with all the data
     const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        role,
-      },
+      data: userData,
     });
 
     const token = generateToken(user);
@@ -34,6 +46,10 @@ exports.register = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        internshipRole: user.internshipRole,
+        duration: user.duration,
+        startDate: user.startDate,
+        department: user.department,
       },
       token,
     });
@@ -63,6 +79,10 @@ exports.login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        internshipRole: user.internshipRole,
+        duration: user.duration,
+        startDate: user.startDate,
+        department: user.department,
       },
       token,
     });
